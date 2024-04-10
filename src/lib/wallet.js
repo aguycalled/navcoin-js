@@ -142,8 +142,9 @@ export class WalletFile extends events.EventEmitter {
       deriveSpendingKeyFromStringHash: this.DeriveSpendingKeyFromStringHash,
       spendingPassword: this.spendingPassword,
       log: this.log,
+      emit: this.emit
     });
-    this.stakingAddress = new StakingAddress({ db: this.db, sync: this.Sync, network: this.network })
+    this.stakingAddress = new StakingAddress({ db: this.db, sync: this.Sync, network: this.network, emit: this.emit });
 
 
   }
@@ -2763,7 +2764,7 @@ export class WalletFile extends events.EventEmitter {
     if (!msk) return;
 
     let utxos = await this.GetUtxos(type, fromAddress);
-  
+
     let tx = bitcore.Transaction();
     let addedInputs = 0;
     let privateKeys = [];
@@ -2776,7 +2777,7 @@ export class WalletFile extends events.EventEmitter {
         throw new TypeError("NavSend can only spend nav outputs");
 
       let prevtx = await this.txProcessor.GetTx(out.txid);
-     
+
       if (prevtx.tx.outputs[out.vout].hasBlsctKeys() && !selectxnav) continue;
       if (!prevtx.tx.outputs[out.vout].hasBlsctKeys() && selectxnav) continue;
 
@@ -2909,5 +2910,5 @@ export class WalletFile extends events.EventEmitter {
       );
     }
   }
-  
+
 }

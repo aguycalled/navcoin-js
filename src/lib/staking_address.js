@@ -6,6 +6,7 @@ export class StakingAddress {
         this.db = options.db;
         this.Sync = options.sync;
         this.network = options.network;
+        this.emit = options.emit;
     }
 
     async AddStakingAddress(pk, pk2, sync = false) {

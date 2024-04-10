@@ -16,9 +16,10 @@ export class TxProcessor {
     this.DeriveSpendingKeyFromStringHash = options.deriveSpendingKeyFromStringHash;
     this.spendingPassword = options.spendingPassword;
     this.log = options.log;
+    this.emit= options.emit;
     this.Log = new Logger(this.log);
     this.getInfo = new GetInfo(this.client, this.db);
-    this.stakingAddress = new StakingAddress({ db: options.db, network: options.network, sync: options.sync });
+    this.stakingAddress = new StakingAddress({ db: options.db, network: options.network, sync: options.sync, emit: this.emit });
   }
 
 
